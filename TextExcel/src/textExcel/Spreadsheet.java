@@ -3,11 +3,11 @@ package textExcel;
 // Update this file with your own code.
 
 public class Spreadsheet implements Grid {
-	 
+	 private Cell[][] grid;
 //constructor
 	public Spreadsheet() {
 		//initializes a 2D array of cells with all elements containing EmptyCell Objects
-		Cell[][] grid = new Cell[getRows()][getCols()];
+		grid = new Cell[getRows()][getCols()];
 		
 		for(int i=0; i<grid.length; i++){
 			for(int j=0; j<grid[0].length; j++) {
@@ -38,10 +38,10 @@ public class Spreadsheet implements Grid {
 	}
 
 	@Override
-	public Cell getCell(Location loc)
+	public Cell getCell(Location loc)//accepts location, returns Cell at that location
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return grid[loc.getRow()][loc.getCol()];
 	}
 
 	@Override

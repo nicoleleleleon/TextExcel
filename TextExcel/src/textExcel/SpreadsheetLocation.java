@@ -6,7 +6,7 @@ public class SpreadsheetLocation implements Location
 {
 	private int row;
 	private int col;
-	private String loc;
+	private String location;
     @Override
     public int getRow()
     {
@@ -25,11 +25,11 @@ public class SpreadsheetLocation implements Location
     //constructor
     public SpreadsheetLocation(String cellName)
     {
-    	loc = cellName;
-    	String rowStr = loc.substring(1);
+    	location = cellName;
+    	String rowStr = location.substring(1);
     	row = Integer.parseInt(rowStr) - 1;
     	//convert letter to index
-    	String letter = loc.toUpperCase();
+    	String letter = location.toUpperCase();
     	col = (int)(letter.charAt(0) - 65);//minus 65 because that's the value of 'A'
         // TODO: Fill this out with your own code
     	
