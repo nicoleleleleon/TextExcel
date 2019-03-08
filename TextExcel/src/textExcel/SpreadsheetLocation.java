@@ -27,7 +27,8 @@ public class SpreadsheetLocation implements Location
     {
     	location = cellName;
     	String rowStr = location.substring(1);
-    	row = Integer.parseInt(rowStr) - 1;
+    	//System.out.println(rowStr);
+    	row = Integer.parseInt(rowStr)-1;
     	//convert letter to index
     	String letter = location.toUpperCase();
     	col = (int)(letter.charAt(0) - 65);//minus 65 because that's the value of 'A'

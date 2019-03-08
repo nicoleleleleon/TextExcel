@@ -5,6 +5,7 @@ package textExcel;
 
 public class TextCell implements Cell{
 	private String userInput;
+	
 	public TextCell(String input) {
 		userInput = input;
 	}

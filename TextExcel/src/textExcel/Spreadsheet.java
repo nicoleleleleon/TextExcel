@@ -19,6 +19,10 @@ public class Spreadsheet implements Grid {
 	@Override
 	public String processCommand(String command)
 	{
+		/*Location loc = new SpreadsheetLocation(command);
+		System.out.println("row: " + loc.getRow());
+		System.out.println("column: " + loc.getCol()); */
+		
 		// TODO Auto-generated method stub
 		return "";
 	}

@@ -26,9 +26,6 @@ public class TextExcel
     	Spreadsheet sheet = new Spreadsheet();
     	while (!input.equalsIgnoreCase("quit")) {
     		System.out.println(sheet.processCommand(input));
-    		Location loc = new SpreadsheetLocation(input);
-    		System.out.println("row: " + loc.getRow());
-    		System.out.println("column: " + loc.getCol());
 			System.out.println("Do you want to keep going? Type \"quit\" to end."); 
 			input = userInput.nextLine();
 	}
