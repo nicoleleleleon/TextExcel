@@ -1,12 +1,18 @@
 package textExcel;
 
+import java.util.Arrays;
+
 // Update this file with your own code.
 
 public class Spreadsheet implements Grid {
 	 private Cell[][] grid;
+	 private int numRows;
+	 private int numCols;
 //constructor
 	public Spreadsheet() {
 		//initializes a 2D array of cells with all elements containing EmptyCell Objects
+		numCols = 12;
+		numRows = 20;
 		grid = new Cell[getRows()][getCols()];
 		
 		for(int i=0; i<grid.length; i++){
@@ -19,11 +25,10 @@ public class Spreadsheet implements Grid {
 	@Override
 	public String processCommand(String command)
 	{
-		/*Location loc = new SpreadsheetLocation(command);
-		System.out.println("row: " + loc.getRow());
+		/*System.out.println("row: " + loc.getRow());
 		System.out.println("column: " + loc.getCol()); */
-		
 		// TODO Auto-generated method stub
+		
 		return "";
 	}
 
@@ -31,14 +36,14 @@ public class Spreadsheet implements Grid {
 	public int getRows()
 	{
 		// TODO Auto-generated method stub
-		return 20;
+		return numRows;
 	}
 
 	@Override
 	public int getCols()
 	{
 		// TODO Auto-generated method stub
-		return 12;
+		return numCols;
 	}
 
 	@Override
@@ -49,10 +54,33 @@ public class Spreadsheet implements Grid {
 	}
 
 	@Override
-	public String getGridText()
-	{
+	
+	public String getGridText() {
 		// TODO Auto-generated method stub
-		return null;
+		
+		System.out.print("   |");
+		
+		for(int letter = 0; letter< numCols; letter++) {
+			System.out.print((char)('A'+letter) + "         |");
+		}
+		
+			String value = "";
+			
+		for(int r = 0; r< numRows; r++) { //row
+				value+= r+1;
+				if(r<=9) {
+					value+= "  |" ;
+				} else {
+					value+= " |" ;
+				}
+			for(int c = 0; c<=11; c++) { //column
+				Location loc = new SpreadsheetLocation(r, c);
+				value += getCell(loc).abbreviatedCellText();
+				value += "|";
+			}
+			System.out.println();
+		}
+		return value;
 	}
 
 }

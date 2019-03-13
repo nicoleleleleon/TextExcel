@@ -8,6 +8,8 @@ public class SpreadsheetLocation implements Location
 	private int col;
 	private String location;
     @Override
+    
+    
     public int getRow()
     {
         // TODO Auto-generated method stub
@@ -35,6 +37,10 @@ public class SpreadsheetLocation implements Location
         // TODO: Fill this out with your own code
     	
     	
+    }
+    public SpreadsheetLocation (int r, int c) {
+    	row = r;
+    	col = c;
     }
 
 }
