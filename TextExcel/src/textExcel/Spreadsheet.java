@@ -29,6 +29,28 @@ public class Spreadsheet implements Grid {
 		System.out.println("column: " + loc.getCol()); */
 		// TODO Auto-generated method stub
 		
+		//cell inspection, if length is three or less
+		if(command.length()<=3) {
+			Location loc = new SpreadsheetLocation(command);
+			return getCell(loc).fullCellText();
+		} else if (command.startsWith("clear ")) {//ELSE IF does it contain "clear"
+			Location loc = new SpreadsheetLocation(command.substring(6));//if just clear--> clear whole sheet 
+			grid[loc.getRow()][loc.getCol()] = new EmptyCell();
+		} else if (command.equals("clear")) {//if just clear--> clear whole sheet 
+			for(int i=0; i<grid.length; i++){
+				for(int j=0; j<grid[0].length; j++) {
+					grid[i][j] = new EmptyCell();
+					}
+				}
+		} else {//ELSE assignment
+		//parse the "=" --> location, value (for now, make new cell instance and store the value)
+			String[] assignment = command.split(" "); //[location,=,value]
+			Location loc = new SpreadsheetLocation(assignment[0]);
+			grid[loc.getRow()][loc.getCol()] = assignment[2];
+			//FIXXX NEED TO CONVERT FROM STRING TO CELL???????
+		}
+			
+		
 		return "";
 	}
 
@@ -57,28 +79,31 @@ public class Spreadsheet implements Grid {
 	
 	public String getGridText() {
 		// TODO Auto-generated method stub
-		
-		System.out.print("   |");
+		String value = "";
+				value += "   |";
+		//System.out.print("   |");
 		
 		for(int letter = 0; letter< numCols; letter++) {
-			System.out.print((char)('A'+letter) + "         |");
+			
+					value += (char)('A'+letter) + "         |";
+			//System.out.print((char)('A'+letter) + "         |");
 		}
-		
-			String value = "";
+			value += "\n";
+		//	String value = "";
 			
 		for(int r = 0; r< numRows; r++) { //row
 				value+= r+1;
-				if(r<=9) {
+				if(r<=8) { //so has correct spacing
 					value+= "  |" ;
 				} else {
 					value+= " |" ;
 				}
 			for(int c = 0; c<=11; c++) { //column
 				Location loc = new SpreadsheetLocation(r, c);
-				value += getCell(loc).abbreviatedCellText();
+				value += getCell(loc).abbreviatedCellText(); //remember this syntax Nicole!!
 				value += "|";
 			}
-			System.out.println();
+			value += "\n"; 
 		}
 		return value;
 	}
