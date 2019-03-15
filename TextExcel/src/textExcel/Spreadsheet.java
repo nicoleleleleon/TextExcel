@@ -37,29 +37,25 @@ public class Spreadsheet implements Grid {
 			Location loc = new SpreadsheetLocation(command);
 			return getCell(loc).fullCellText();
 			
-		} else if (command.startsWith("clear ")) {//ELSE IF does it contain "clear "
-			
-			Location loc = new SpreadsheetLocation(command.substring(6)); 
-			grid[loc.getRow()][loc.getCol()] = new EmptyCell();
-			
-		} else if (command.equals("clear")) {//if just clear--> clear whole sheet 
+		} else if (command.equalsIgnoreCase("clear")) {//if just clear--> clear whole sheet 
 			
 			for(int i=0; i<grid.length; i++){
 				for(int j=0; j<grid[0].length; j++) {
 					grid[i][j] = new EmptyCell();
-					
-					}
 				}
+			}
+		} else if (command.substring(0,6).equalsIgnoreCase("clear ")) {//ELSE IF does it contain "clear "
 			
+			Location loc = new SpreadsheetLocation(command.substring(6)); 
+			grid[loc.getRow()][loc.getCol()] = new EmptyCell();
+		
 		} else {//ELSE assignment
 		//parse the "=" --> location, value (for now, make new cell instance and store the value)
-			String[] assignment = command.split(" "); //[location,=,value]
+			String[] assignment = command.split(" ",3); //[location,=,value]
 			Location loc = new SpreadsheetLocation(assignment[0]);
 			Cell newValue = new TextCell(assignment[2]);
 			grid[loc.getRow()][loc.getCol()] = newValue;//made into cell
-		}
-			
-		
+			}		
 		return "";
 	}
 

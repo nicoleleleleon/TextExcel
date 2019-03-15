@@ -29,7 +29,7 @@ public class TextCell implements Cell{
 	
 	// text for individual cell inspection, not truncated or padded
 	public String fullCellText() { 
-		String origStr = "\"" + text + "\"";
+		String origStr = "\"" + text.substring(0,text.length()-10) + "\"";//bc added spaces
 		return origStr;
 		
 	}
