@@ -4,19 +4,32 @@
 package textExcel;
 
 public class TextCell implements Cell{
-	private String userInput;
+	private String text;
 	
 	public TextCell(String input) {
-		userInput = input;
+		text = input.substring(1,input.length()-1) + "          ";
 	}
 	
 	// text for spreadsheet cell display, must be exactly length 10
-	public String abbreviatedCellText() {;
-		return userInput.substring(0,9);
+	public String abbreviatedCellText() {
+		/*if(text.length()>10) {//abbreviates
+		return text.substring(1,11);
+	}else {
+		text = text.substring(1,text.length()-1);//fixes spacing
+		String spaces = ""; //adds spaces
+		for(int i=text.length(); i<10; i++) {
+				spaces += " ";
+		}
+		return text + spaces;
+	}*/
+		
+		return text.substring(0,10);
+		
 	}
+	
 	// text for individual cell inspection, not truncated or padded
 	public String fullCellText() { 
-		String origStr = "\"" + userInput + "\"";
+		String origStr = "\"" + text + "\"";
 		return origStr;
 		
 	}

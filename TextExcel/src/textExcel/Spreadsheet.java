@@ -1,3 +1,5 @@
+//Nicole Leon :))
+
 package textExcel;
 
 import java.util.Arrays;
@@ -31,23 +33,30 @@ public class Spreadsheet implements Grid {
 		
 		//cell inspection, if length is three or less
 		if(command.length()<=3) {
+			
 			Location loc = new SpreadsheetLocation(command);
 			return getCell(loc).fullCellText();
-		} else if (command.startsWith("clear ")) {//ELSE IF does it contain "clear"
-			Location loc = new SpreadsheetLocation(command.substring(6));//if just clear--> clear whole sheet 
+			
+		} else if (command.startsWith("clear ")) {//ELSE IF does it contain "clear "
+			
+			Location loc = new SpreadsheetLocation(command.substring(6)); 
 			grid[loc.getRow()][loc.getCol()] = new EmptyCell();
+			
 		} else if (command.equals("clear")) {//if just clear--> clear whole sheet 
+			
 			for(int i=0; i<grid.length; i++){
 				for(int j=0; j<grid[0].length; j++) {
 					grid[i][j] = new EmptyCell();
+					
 					}
 				}
+			
 		} else {//ELSE assignment
 		//parse the "=" --> location, value (for now, make new cell instance and store the value)
 			String[] assignment = command.split(" "); //[location,=,value]
 			Location loc = new SpreadsheetLocation(assignment[0]);
-			grid[loc.getRow()][loc.getCol()] = assignment[2];
-			//FIXXX NEED TO CONVERT FROM STRING TO CELL???????
+			Cell newValue = new TextCell(assignment[2]);
+			grid[loc.getRow()][loc.getCol()] = newValue;//made into cell
 		}
 			
 		

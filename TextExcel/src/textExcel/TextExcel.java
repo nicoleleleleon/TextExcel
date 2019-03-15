@@ -20,7 +20,7 @@ public class TextExcel
 	public static void main(String[] args)
 	{
 	    // Add your command loop here
-		System.out.println("MmmmMMMMmmmm gimme some commands!"); 
+		System.out.println("MmmmMMMMmmmm gimme some commands or ELSE (type quit)!"); 
     	Scanner userInput = new Scanner(System.in);
     	String input = userInput.nextLine(); //gets equation
     	Spreadsheet sheet = new Spreadsheet();
@@ -35,3 +35,17 @@ public class TextExcel
 	}
 }
 }
+
+
+//errors I see:
+/*
+ * every time i make another cell assignment it takes off the initial and last chars of the String
+ * If i pass in a long string it doesn't show 10 chars it shows 6
+ */
+
+
+
+
+
+
+
