@@ -51,7 +51,7 @@ public class Spreadsheet implements Grid {
 		
 		} else {//ELSE assignment
 		//parse the "=" --> location, value (for now, make new cell instance and store the value)
-			String[] assignment = command.split(" ",3); //[location,=,value]
+			String[] assignment = command.split(" ",3); //[location,=,value], splits first 3 spaces
 			Location loc = new SpreadsheetLocation(assignment[0]);
 			Cell newValue = new TextCell(assignment[2]);
 			grid[loc.getRow()][loc.getCol()] = newValue;//made into cell

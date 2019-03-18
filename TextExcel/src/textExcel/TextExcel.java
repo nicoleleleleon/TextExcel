@@ -41,6 +41,8 @@ public class TextExcel
 /*
  * every time i make another cell assignment it takes off the initial and last chars of the String
  * If i pass in a long string it doesn't show 10 chars it shows 6
+ * 			--> the fix was using Lamont's method of adding spaces, splitting only first three spaces
+ * 								in processCommand (( .split(" ",3); ))
  */
 
 
