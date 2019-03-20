@@ -56,7 +56,7 @@ public class Spreadsheet implements Grid {
 			Cell newValue = new TextCell(assignment[2]);
 			grid[loc.getRow()][loc.getCol()] = newValue;//made into cell
 			}		
-		return "";
+		return getGridText(); // inspection already has return so won't do this one :D
 	}
 
 	@Override

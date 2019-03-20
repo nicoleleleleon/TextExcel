@@ -26,10 +26,12 @@ public class TextExcel
     	Spreadsheet sheet = new Spreadsheet();
     	while (!input.equalsIgnoreCase("quit")) {
     		System.out.println(sheet.processCommand(input));
-    		if(input.length()<=3) {//won't print entire grid if just cell inspection
+    	/*	if(input.length()<=3) {//won't print entire grid if just cell inspection
     		}else{
     			System.out.println(sheet.getGridText());
     		}
+    		Did this in processCommand
+    		*/
 			System.out.println("Do you want to keep going? Type \"quit\" to end."); 
 			input = userInput.nextLine();
 	}
