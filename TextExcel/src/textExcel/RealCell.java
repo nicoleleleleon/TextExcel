@@ -9,18 +9,18 @@ public class RealCell implements Cell {
 public RealCell(String input) {
 	input += "          ";
 	valueText = input;
-	value = Integer.parseInt(input);
+	value = Double.parseDouble(input);
 }
 
 	public String getText() {
-		return valueText;
+		return valueText.substring(0,valueText.length()-10);
 	}
 	public double getDoubleValue() { //FormulaCell --> doesn't need to work yet
 		return value;				//for ValueCell --> same as given (whole thing)
 	}							   //PercentCell --> into decimal places
-	public double getValue() {
+	/*public double getValue() {
 		return value; 
-	}
+	}*/
 	public String abbreviatedCellText() {
 		// text for spreadsheet cell display, must be exactly length 10
 		return valueText.substring(0,10);
