@@ -1,6 +1,8 @@
 package textExcel;
 
 public class FormulaCell extends RealCell{
+	String[] formParts;
+	
 		public FormulaCell(String input) {
 			super(input);
 		}

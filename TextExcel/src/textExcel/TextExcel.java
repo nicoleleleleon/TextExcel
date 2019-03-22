@@ -45,6 +45,10 @@ public class TextExcel
  * If i pass in a long string it doesn't show 10 chars it shows 6
  * 			--> the fix was using Lamont's method of adding spaces, splitting only first three spaces
  * 								in processCommand (( .split(" ",3); ))
+ * 
+ * ERRORS THROWN EVERYTIME TRY TO MAKE PERCENTCELL OR FORMULA CELL
+ * WHEN PRINTING WHOLE VALUECELL IN GRID NEED TO ADD ".0"
+ * 
  */
 
 

@@ -48,14 +48,30 @@ public class Spreadsheet implements Grid {
 			
 			Location loc = new SpreadsheetLocation(command.substring(6)); 
 			grid[loc.getRow()][loc.getCol()] = new EmptyCell();
-		
 		} else {//ELSE assignment
 		//parse the "=" --> location, value (for now, make new cell instance and store the value)
 			String[] assignment = command.split(" ",3); //[location,=,value], splits first 3 spaces
 			Location loc = new SpreadsheetLocation(assignment[0]);
-			Cell newValue = new TextCell(assignment[2]);
+			String assignedVal = assignment[2];
+			
+			Cell newValue;
+			
+				if(assignedVal.startsWith("(") && assignedVal.endsWith(")")) {//formula
+					newValue = new FormulaCell(assignedVal);
+					
+				} else if (assignedVal.endsWith("%")) { //percent
+					newValue = new PercentCell(assignedVal);
+					
+				} else if (assignedVal.startsWith("\"") && assignedVal.endsWith("\"")) {//text
+					newValue = new TextCell(assignedVal);
+					
+				} else { //value
+					newValue = new ValueCell(assignedVal);
+					
+				}
 			grid[loc.getRow()][loc.getCol()] = newValue;//made into cell
-			}		
+			
+			}	
 		return getGridText(); // inspection already has return so won't do this one :D
 	}
 
