@@ -7,8 +7,9 @@ public class PercentCell extends ValueCell{
 	
 	public PercentCell(String input) {
 			super(input);
-			int num = Integer.parseInt(valueText.replace("%", ""));
-			truncatedValue = num + "%          ";//into string so it will stay an int
+			double num = Double.parseDouble(valueText.replace("%", "")) * 100; 
+			System.out.println(num);
+			truncatedValue = (int) num/100 + "%          ";//into string so it will stay an int
 	}															
 
 	public double getDoubleValue() {
