@@ -5,43 +5,45 @@ public class FormulaCell extends RealCell{
 	
 		public FormulaCell(String input) {
 			super(input);
+			formParts = valueText.substring(2,valueText.length()-2).split(" ");	//gets rid of parenthesis then splits
 		}
 		public String getText() {
-			return valueText.substring(0,valueText.length()-10);
+			return valueText;
 		}
 		public double getDoubleValue() { //gotta handle calculations now
-			String[] formula = valueText.substring(1,valueText.length()-1).split(" ");//gets rid of parenthesis
 			double operand;
 			String operator;
-			double ans=0;
-			for(int i = 0; i<formula.length; i+=2) {
-				operand = Double.parseDouble(formula[1]);
-			for(int j=0; j<formula.length; j+=2) {
-				operator = formula[i];
-				
+			double ans=Double.parseDouble(formParts[0]);
+			//for(int i = 2; i<=formParts.length; i+=2) {
+			//	for(int j=1; j<formParts.length; j+=2) {
+					int i=2; int j = 1;
+					while(i<=formParts.length) {
+					operand = Double.parseDouble(formParts[i]);	
+					operator = formParts[j];
 				 if(operator.equals("+")) {
-			    	  ans = 
+			    	  ans += operand;
 			      } else if (operator.equals("-")) {
-			    	 
+			    	  ans -= operand;
 			      } else  if (operator.equals("*")) {
-			    	 
+			    	  ans *= operand;
 			      } else if (operator.equals("/")){
-			   
-			      }	
-				
+			    	  ans /= operand;
+			      }
+				 i+=2; j+=2;
 			}
-		}
-			
+		//	}
+
+//		}
 			return ans;				
 		}							   
 		public String abbreviatedCellText() {
 			// text for spreadsheet cell display, must be exactly length 10
-			String output = "heyyyy" + "          ";
+			String output = getDoubleValue() + "           ";
 			return output.substring(0,10);
 		}
 		public String fullCellText() {
 			// text for individual cell inspection, not truncated or padded
-			return valueText.substring(0,valueText.length()-10);
+			return valueText;
 		}
 		
 }
