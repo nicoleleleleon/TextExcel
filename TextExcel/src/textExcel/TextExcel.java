@@ -20,7 +20,7 @@ public class TextExcel
 	public static void main(String[] args)
 	{
 	    // Add your command loop here
-		System.out.println("MmmmMMMMmmmm gimme some commands or ELSE (type quit)!"); 
+		System.out.println("MmmmMMMMmmmm gimme some yummy commands"); 
     	Scanner userInput = new Scanner(System.in);
     	String input = userInput.nextLine(); //gets equation
     	Spreadsheet sheet = new Spreadsheet();
@@ -32,7 +32,8 @@ public class TextExcel
     		}
     		Did this in processCommand
     		*/
-			System.out.println("Do you want to keep going? Type \"quit\" to end."); 
+    		System.out.println("You done yet? I don't get paid enough for this. Hurry up and type \"quit\"");
+			//System.out.println("Do you want to keep going? Type \"quit\" to end."); 
 			input = userInput.nextLine();
 	}
 }
