@@ -53,11 +53,12 @@ public class Spreadsheet implements Grid {
 			String[] assignment = command.split(" ",3); //[location,=,value], splits first 3 spaces
 			Location loc = new SpreadsheetLocation(assignment[0]);
 			String assignedVal = assignment[2];
+			//Spreadsheet aaah = new Spreadsheet();
 			
 			Cell newValue;
 			
 				if(assignedVal.startsWith("(") && assignedVal.endsWith(")")) {//formula
-					newValue = new FormulaCell(assignedVal);
+					newValue = new FormulaCell(assignedVal, this);//,aaah);
 					
 				} else if (assignedVal.endsWith("%")) { //percent
 					newValue = new PercentCell(assignedVal);

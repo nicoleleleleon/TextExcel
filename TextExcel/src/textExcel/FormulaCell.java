@@ -5,6 +5,7 @@ package textExcel;
 public class FormulaCell extends RealCell{
 	private String[] formParts;
 	private Spreadsheet sheetcopy;
+	
 		public FormulaCell(String input,Spreadsheet sheet) {
 			super(input);
 			sheetcopy = sheet;
@@ -24,9 +25,12 @@ public class FormulaCell extends RealCell{
 			//so that if the first operand has a letter it handles that separately
 			if(Character.isLetter(formParts[0].charAt(0))) {//if first index has a letter
 				Location loc = new SpreadsheetLocation(formParts[0]); //call getCell()
-				RealCell tempCell = (RealCell) sheetcopy.getCell(loc); //made new field so self-aware that it is SpreadsheetLocation
-			    ans = tempCell.getDoubleValue();
-			} else {
+				if ( sheetcopy.getCell(loc) instanceof RealCell ){
+					RealCell tempCell = (RealCell) sheetcopy.getCell(loc); //made new field so self-aware that it is SpreadsheetLocation
+					ans = tempCell.getDoubleValue();
+			} else if (sheetcopy.getCell(loc) instanceof TextCell){
+					
+			}
 				ans = Double.parseDouble(formParts[0]);	
 			}
 		
@@ -35,7 +39,7 @@ public class FormulaCell extends RealCell{
 					int i=2; int j = 1;
 					while(i<=formParts.length) {
 						if(Character.isLetter(formParts[i].charAt(0))) {//if first index has a letter
-							Location loc = new SpreadsheetLocation(formParts[i]); //call getCell()
+							SpreadsheetLocation loc = new SpreadsheetLocation(formParts[i]); //call getCell()
 							RealCell tempCell = (RealCell) sheetcopy.getCell(loc); //made new field so self-aware
 							operand = tempCell.getDoubleValue();
 						} else {
