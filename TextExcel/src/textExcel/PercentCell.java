@@ -3,7 +3,7 @@
 package textExcel;
 
 public class PercentCell extends ValueCell{
-		String truncatedValue;
+		private String truncatedValue;
 	
 	public PercentCell(String input) {
 			super(input);

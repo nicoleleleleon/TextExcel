@@ -19,30 +19,30 @@ public class FormulaCell extends RealCell{
 			return valueText;
 		}
 		public double getDoubleValue() { //gotta handle calculations now
-			double operand;
+			double operand = 0;
 			String operator;
 			double ans = 0;
-			//so that if the first operand has a letter it handles that separately
-			if(Character.isLetter(formParts[0].charAt(0))) {//if first index has a letter
+			
+			if(Character.isLetter(formParts[0].charAt(0)) && !formParts[0].equalsIgnoreCase("SUM") && !formParts[0].equalsIgnoreCase("AVG")) {//if first index has a letter
 				Location loc = new SpreadsheetLocation(formParts[0]); //call getCell()
 				if ( sheetcopy.getCell(loc) instanceof RealCell ){
 					RealCell tempCell = (RealCell) sheetcopy.getCell(loc); //made new field so self-aware that it is SpreadsheetLocation
 					ans = tempCell.getDoubleValue();
-			} else if (sheetcopy.getCell(loc) instanceof TextCell){
-					
-			}
+		/*	}else if (sheetcopy.getCell(loc) instanceof TextCell){
+					TextCell tempCell = (TextCell) sheetcopy.getCell(loc);
+					ans = tempCell.getDoubleValue();
+			*/}} else if (!Character.isLetter(formParts[0].charAt(0))){
 				ans = Double.parseDouble(formParts[0]);	
 			}
-		
 			//for(int i = 2; i<=formParts.length; i+=2) {
 			//	for(int j=1; j<formParts.length; j+=2) {
 					int i=2; int j = 1;
-					while(i<=formParts.length) {
-						if(Character.isLetter(formParts[i].charAt(0))) {//if first index has a letter
+					while(i<=formParts.length && !formParts[0].equalsIgnoreCase("SUM") && !formParts[0].equalsIgnoreCase("AVG")) {
+						if(Character.isLetter(formParts[i].charAt(0)) && !formParts[0].equalsIgnoreCase("SUM") && !formParts[0].equalsIgnoreCase("AVG")) {//if index has a letter
 							SpreadsheetLocation loc = new SpreadsheetLocation(formParts[i]); //call getCell()
 							RealCell tempCell = (RealCell) sheetcopy.getCell(loc); //made new field so self-aware
 							operand = tempCell.getDoubleValue();
-						} else {
+						} else if (!Character.isLetter(formParts[0].charAt(0))){
 					operand = Double.parseDouble(formParts[i]);	//otherwise it is just what it is
 						}
 					operator = formParts[j];
@@ -57,11 +57,40 @@ public class FormulaCell extends RealCell{
 			      }
 				 i+=2; j+=2;
 			}
-		//	}
-
+				if(formParts[0].equalsIgnoreCase("SUM")) {
+						ans = findSum(formParts[1]);
+					}
+				if(formParts[0].equalsIgnoreCase("AVG")) {
+						
+						ans = findSum(formParts[1]) / findNum(formParts[1]);
+				}
 //		}
 			return ans;				
-		}				
+		}			
+		public int findNum(String range) {
+			String[] location = range.split("-");
+			SpreadsheetLocation start = new SpreadsheetLocation(location[0]);
+			SpreadsheetLocation end = new SpreadsheetLocation(location[1]);
+			int rows = end.getRow() - start.getRow() + 1;
+			int cols = end.getCol() - start.getCol() + 1;
+
+			return rows*cols;
+		}
+		
+		public double findSum(String range) {
+			String[] location = range.split("-");
+			SpreadsheetLocation start = new SpreadsheetLocation(location[0]);
+			SpreadsheetLocation end = new SpreadsheetLocation(location[1]);
+			double sum = 0;
+			 for(int r = start.getRow(); r<= end.getRow(); r++) {
+				 for(int c = start.getCol(); c<=end.getCol(); c++) {
+					 SpreadsheetLocation loc = new SpreadsheetLocation(r,c);
+					 RealCell tempCell = (RealCell) sheetcopy.getCell(loc);
+					 sum += tempCell.getDoubleValue();
+				 }
+			 }
+			return sum;
+		}
 		public String abbreviatedCellText() {
 			// text for spreadsheet cell display, must be exactly length 10
 			String output = getDoubleValue() + "           ";
