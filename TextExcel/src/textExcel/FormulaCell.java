@@ -23,19 +23,31 @@ public class FormulaCell extends RealCell{
 			String operator;
 			double ans = 0;
 			
-			if(Character.isLetter(formParts[0].charAt(0)) && !formParts[0].equalsIgnoreCase("SUM") && !formParts[0].equalsIgnoreCase("AVG")) {//if first index has a letter
+			if(formParts[0].equalsIgnoreCase("SUM")) {
+				ans = findSum(formParts[1]);
+				
+			} else if(formParts[0].equalsIgnoreCase("AVG")) {
+				ans = findSum(formParts[1]) / findNum(formParts[1]);
+				
+		} else if(Character.isLetter(formParts[0].charAt(0)) && !Character.isLetter(formParts[0].charAt(1))) {//if first index has a letter
+			Location loc = new SpreadsheetLocation(formParts[0]); //call getCell()
+			if ( sheetcopy.getCell(loc) instanceof RealCell ){
+				RealCell tempCell = (RealCell) sheetcopy.getCell(loc); //made new field so self-aware that it is SpreadsheetLocation
+				ans = tempCell.getDoubleValue();
+				
+	}} else if (!Character.isLetter(formParts[0].charAt(0))){
+			ans = Double.parseDouble(formParts[0]);	
+		}
+			
+		/*	if(Character.isLetter(formParts[0].charAt(0)) && !formParts[0].equalsIgnoreCase("SUM") && !formParts[0].equalsIgnoreCase("AVG")) {//if first index has a letter
 				Location loc = new SpreadsheetLocation(formParts[0]); //call getCell()
 				if ( sheetcopy.getCell(loc) instanceof RealCell ){
 					RealCell tempCell = (RealCell) sheetcopy.getCell(loc); //made new field so self-aware that it is SpreadsheetLocation
 					ans = tempCell.getDoubleValue();
-		/*	}else if (sheetcopy.getCell(loc) instanceof TextCell){
-					TextCell tempCell = (TextCell) sheetcopy.getCell(loc);
-					ans = tempCell.getDoubleValue();
-			*/}} else if (!Character.isLetter(formParts[0].charAt(0))){
+		}} else if (!Character.isLetter(formParts[0].charAt(0))){
 				ans = Double.parseDouble(formParts[0]);	
 			}
-			//for(int i = 2; i<=formParts.length; i+=2) {
-			//	for(int j=1; j<formParts.length; j+=2) {
+			
 					int i=2; int j = 1;
 					while(i<=formParts.length && !formParts[0].equalsIgnoreCase("SUM") && !formParts[0].equalsIgnoreCase("AVG")) {
 						if(Character.isLetter(formParts[i].charAt(0)) && !formParts[0].equalsIgnoreCase("SUM") && !formParts[0].equalsIgnoreCase("AVG")) {//if index has a letter
@@ -64,7 +76,7 @@ public class FormulaCell extends RealCell{
 						
 						ans = findSum(formParts[1]) / findNum(formParts[1]);
 				}
-//		}
+//		}*/
 			return ans;				
 		}			
 		public int findNum(String range) {
