@@ -29,16 +29,46 @@ public class FormulaCell extends RealCell{
 			} else if(formParts[0].equalsIgnoreCase("AVG")) {
 				ans = findSum(formParts[1]) / findNum(formParts[1]);
 				
-		} else if(Character.isLetter(formParts[0].charAt(0)) && !Character.isLetter(formParts[0].charAt(1))) {//if first index has a letter
-			Location loc = new SpreadsheetLocation(formParts[0]); //call getCell()
-			if ( sheetcopy.getCell(loc) instanceof RealCell ){
-				RealCell tempCell = (RealCell) sheetcopy.getCell(loc); //made new field so self-aware that it is SpreadsheetLocation
-				ans = tempCell.getDoubleValue();
+			} else if (Character.isLetter(formParts[0].charAt(0))) {//if first index still has a letter
+				Location loc = new SpreadsheetLocation(formParts[0]); //call getCell()
 				
-	}} else if (!Character.isLetter(formParts[0].charAt(0))){
-			ans = Double.parseDouble(formParts[0]);	
-		}
+				if ( sheetcopy.getCell(loc) instanceof RealCell ){
+					RealCell tempCell = (RealCell) sheetcopy.getCell(loc); //made new field so self-aware that it is SpreadsheetLocation
+					ans = tempCell.getDoubleValue();
+					
+				}} else if (!Character.isLetter(formParts[0].charAt(0))){
+					ans = Double.parseDouble(formParts[0]);	
+				}
 			
+			int i=2; int j = 1;
+			
+			while(i<=formParts.length && !formParts[0].equalsIgnoreCase("SUM") && !formParts[0].equalsIgnoreCase("AVG")) {
+				
+				if(Character.isLetter(formParts[i].charAt(0))) {//if index has a letter
+					SpreadsheetLocation loc = new SpreadsheetLocation(formParts[i]); //call getCell()
+					RealCell tempCell = (RealCell) sheetcopy.getCell(loc); //made new field so self-aware
+					operand = tempCell.getDoubleValue();
+					
+				} else if (!Character.isLetter(formParts[0].charAt(0))){
+			operand = Double.parseDouble(formParts[i]);	//otherwise it is just what it is
+			System.out.println(operand);
+				}
+			operator = formParts[j];
+			
+		 if(operator.equals("+")) {
+	    	  ans += operand;
+	      } else if (operator.equals("-")) {
+	    	  ans -= operand;
+	      } else  if (operator.equals("*")) {
+	    	  ans *= operand;
+	      } else if (operator.equals("/")){
+	    	  ans /= operand;
+	      }
+		 i+=2; j+=2;
+		 
+	}
+			return ans;				
+		}
 		/*	if(Character.isLetter(formParts[0].charAt(0)) && !formParts[0].equalsIgnoreCase("SUM") && !formParts[0].equalsIgnoreCase("AVG")) {//if first index has a letter
 				Location loc = new SpreadsheetLocation(formParts[0]); //call getCell()
 				if ( sheetcopy.getCell(loc) instanceof RealCell ){
@@ -76,9 +106,8 @@ public class FormulaCell extends RealCell{
 						
 						ans = findSum(formParts[1]) / findNum(formParts[1]);
 				}
-//		}*/
 			return ans;				
-		}			
+		}*/
 		public int findNum(String range) {
 			String[] location = range.split("-");
 			SpreadsheetLocation start = new SpreadsheetLocation(location[0]);
