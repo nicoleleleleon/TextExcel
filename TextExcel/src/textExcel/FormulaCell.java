@@ -49,9 +49,8 @@ public class FormulaCell extends RealCell{
 					RealCell tempCell = (RealCell) sheetcopy.getCell(loc); //made new field so self-aware
 					operand = tempCell.getDoubleValue();
 					
-				} else if (!Character.isLetter(formParts[0].charAt(0))){
+				}else/* if (!Character.isLetter(formParts[0].charAt(0)))*/{//WASN'T WORKING BC OF THE ELSE IF STMT REQUIREMENTS BC I AM STUPID
 			operand = Double.parseDouble(formParts[i]);	//otherwise it is just what it is
-			System.out.println(operand);
 				}
 			operator = formParts[j];
 			
